@@ -33,7 +33,13 @@ jobs:
           git config --global user.email "kustov.michael@gmail.com"
           git config --global user.name "Michael Kustov"
 
+      - name: Check if there are any changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+
       - name: Generate for Golang
+        if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git fetch --all && git checkout main
           protoc --go_out=./golang --go_opt=paths=source_relative \
