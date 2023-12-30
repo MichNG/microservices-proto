@@ -49,7 +49,7 @@ jobs:
         run: |
           git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Git config and fetching
+      - name: Git commit and pushing if change exists
         if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git add .
