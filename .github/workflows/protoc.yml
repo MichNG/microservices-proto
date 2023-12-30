@@ -36,9 +36,11 @@ jobs:
 
       - name: Generate for Golang
         run: |
-          protoc --go_out=./golang --go_opt=paths=source_relative --go-grpc_out=./golang --go-grpc_opt=paths=source_relative ./${{ matrix.service }}/*.proto
+          protoc --go_out=./golang --go_opt=paths=source_relative \
+            --go-grpc_out=./golang --go-grpc_opt=paths=source_relative \
+            ./${{ matrix.service }}/*.proto
           cd golang/${{ matrix.service }}
-          go mod init github.com/MichNG/microservices-proto/golang/${{ matrix.service }}
+          go mod init github.com/MichNG/microservices-proto/golang/${{ matrix.service }} || true
           go mod tidy
           cd ../../
           git add .
