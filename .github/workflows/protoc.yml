@@ -30,8 +30,8 @@ jobs:
 
       - name: Git config and fetching
         run: |
-          git config --global user.email "kustov.michael@gmail.com"
-          git config --global user.name "Michael Kustov"
+          git config user.email ${{ github.actor }}@users.noreply.github.com
+          git config user.name "Michael Kustov"
           git fetch --all && git checkout main
 
       - name: Generate for Golang
